@@ -177,6 +177,11 @@ def upgrade(request):
                 </p>""".format(_("Upgrade complete, will be effective after restarting service"), _("Restart service")))
     return sanic.response.stream(streaming_fn, content_type='text/html; charset=utf-8')
 
-# if __name__ == "__main__":
-app.run(host="0.0.0.0", port=80, debug=False)
+
+def main():
+    app.run(host="0.0.0.0", port=80, debug=False, single_process=True)
+
+if __name__ == "__main__":
+    main()
+# app.run(host="0.0.0.0", port=80, debug=False)
 # app.run(host="0.0.0.0", port=80)
