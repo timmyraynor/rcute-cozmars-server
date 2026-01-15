@@ -22,13 +22,13 @@ class CozmarsServer:
         self.rmotor = Motor(*self.conf['motor']['right'])
         # self.reset_servos()
         self.reset_motors()
-        self.lir = LineSensor(self.conf['ir']['left'], queue_len=3, sample_rate=10, pull_up=True)
-        self.rir = LineSensor(self.conf['ir']['right'], queue_len=3, sample_rate=10, pull_up=True)
-        sonar_cfg = self.conf['sonar']
-        self.sonar = DistanceSensor(trigger=sonar_cfg['trigger'], echo=sonar_cfg['echo'], max_distance=sonar_cfg['max'], threshold_distance=sonar_cfg['threshold'], queue_len=5, partial=True)
+        # self.lir = LineSensor(self.conf['ir']['left'], queue_len=3, sample_rate=10, pull_up=True)
+        # self.rir = LineSensor(self.conf['ir']['right'], queue_len=3, sample_rate=10, pull_up=True)
+        # sonar_cfg = self.conf['sonar']
+        # self.sonar = DistanceSensor(trigger=sonar_cfg['trigger'], echo=sonar_cfg['echo'], max_distance=sonar_cfg['max'], threshold_distance=sonar_cfg['threshold'], queue_len=5, partial=True)
 
         self._sensor_event_queue = None
-        self._button_last_press_time = 0
+        # self._button_last_press_time = 0
         def cb(ev, obj, attr):
             return lambda: self._sensor_event_queue and self.event_loop.call_soon_threadsafe(self._sensor_event_queue.put_nowait, (ev, getattr(obj, attr)))
         def button_press_cb():
@@ -40,14 +40,14 @@ class CozmarsServer:
                     ev = 'pressed'
                 self.event_loop.call_soon_threadsafe(self._sensor_event_queue.put_nowait, (ev, True))
                 self._button_last_press_time = now
-        self.lir.when_line = self.lir.when_no_line = cb('lir', self.lir, 'value')
-        self.rir.when_line = self.rir.when_no_line = cb('rir', self.rir, 'value')
-        self.button.hold_time = 1
-        self.button.when_pressed = button_press_cb
-        self.button.when_released = cb('pressed', self.button, 'is_pressed')
-        self.button.when_held = cb('long_pressed', self.button, 'is_held')
-        self.sonar.when_in_range = cb('in_range', self.sonar, 'distance')
-        self.sonar.when_out_of_range = cb('out_of_range', self.sonar, 'distance')
+        # self.lir.when_line = self.lir.when_no_line = cb('lir', self.lir, 'value')
+        # self.rir.when_line = self.rir.when_no_line = cb('rir', self.rir, 'value')
+        # self.button.hold_time = 1
+        # self.button.when_pressed = button_press_cb
+        # self.button.when_released = cb('pressed', self.button, 'is_pressed')
+        # self.button.when_held = cb('long_pressed', self.button, 'is_held')
+        # self.sonar.when_in_range = cb('in_range', self.sonar, 'distance')
+        # self.sonar.when_out_of_range = cb('out_of_range', self.sonar, 'distance')
         self.screen.fill(0)
         self._screen_backlight(.01)
 
@@ -62,7 +62,7 @@ class CozmarsServer:
         self.lock.release()
 
     def __del__(self):
-        self.button.close()
+        # self.button.close()
 
     def __init__(self, conf_path=util.CONF, env_path=util.ENV):
         with open(conf_path) as cf:
@@ -76,8 +76,8 @@ class CozmarsServer:
         self.mic_int = False
         self.event_loop = asyncio.get_running_loop()
 
-        self.button = Button(self.conf['button'])
-        self._double_press_threshold = .5
+        # self.button = Button(self.conf['button'])
+        # self._double_press_threshold = .5
         self.cam = None
 
         spi = board.SPI()
