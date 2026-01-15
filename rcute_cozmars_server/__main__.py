@@ -38,9 +38,9 @@ async def button_poweroff():
 def idle():
     global cozmars_rpc_server, server_loop
     cozmars_rpc_server.screen.image(util.splash_screen())
-    cozmars_rpc_server.button.when_pressed = lambda: lightup_screen(5)
-    cozmars_rpc_server.button.hold_time = 5
-    cozmars_rpc_server.button.when_held = lambda: asyncio.run_coroutine_threadsafe(button_poweroff(), server_loop)
+    # cozmars_rpc_server.button.when_pressed = lambda: lightup_screen(5)
+    # cozmars_rpc_server.button.hold_time = 5
+    # cozmars_rpc_server.button.when_held = lambda: asyncio.run_coroutine_threadsafe(button_poweroff(), server_loop)
 
 app = sanic.Sanic(__name__)
 
