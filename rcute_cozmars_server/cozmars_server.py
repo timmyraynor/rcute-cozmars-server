@@ -403,12 +403,13 @@ class CozmarsServer:
         return self.sonar.distance
 
     def _volume(self, control, value):
-        from subprocess import check_output
-        if value:
-            check_output(f'amixer set {control} {value}%'.split(' '))
-        else:
-            a = check_output(f'amixer get {control}'.split(' '))
-            return int(a[a.index(b'[') + 1 : a.index(b'%')])
+        pass
+        # from subprocess import check_output
+        # if value:
+        #     check_output(f'amixer set {control} {value}%'.split(' '))
+        # else:
+        #     a = check_output(f'amixer get {control}'.split(' '))
+        #     return int(a[a.index(b'[') + 1 : a.index(b'%')])
 
     def microphone_volume(self, value=None):
         return self._volume('Boost', value)
