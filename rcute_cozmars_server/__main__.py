@@ -59,9 +59,9 @@ async def before_server_start(request, loop):
     except Exception as e:
         print(e)
 
-app.static('/static', util.STATIC)
-app.static('/conf', util.CONF, content_type="application/json")
-app.static('/env', util.ENV, content_type="application/json")
+app.static('/static', util.STATIC, name='static_files')
+app.static('/conf', util.CONF, content_type="application/json", name='config_json')
+app.static('/env', util.ENV, content_type="application/json", name='env_json')
 
 @app.route('/')
 def index(request):
