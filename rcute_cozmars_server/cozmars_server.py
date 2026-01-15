@@ -32,14 +32,15 @@ class CozmarsServer:
         def cb(ev, obj, attr):
             return lambda: self._sensor_event_queue and self.event_loop.call_soon_threadsafe(self._sensor_event_queue.put_nowait, (ev, getattr(obj, attr)))
         def button_press_cb():
-            if self._sensor_event_queue:
-                now = time.time()
-                if now - self._button_last_press_time <= self._double_press_threshold:
-                    ev = 'double_pressed'
-                else:
-                    ev = 'pressed'
-                self.event_loop.call_soon_threadsafe(self._sensor_event_queue.put_nowait, (ev, True))
-                self._button_last_press_time = now
+            # if self._sensor_event_queue:
+            #     now = time.time()
+            #     if now - self._button_last_press_time <= self._double_press_threshold:
+            #         ev = 'double_pressed'
+            #     else:
+            #         ev = 'pressed'
+            #     self.event_loop.call_soon_threadsafe(self._sensor_event_queue.put_nowait, (ev, True))
+            #     self._button_last_press_time = now
+            pass
         # self.lir.when_line = self.lir.when_no_line = cb('lir', self.lir, 'value')
         # self.rir.when_line = self.rir.when_no_line = cb('rir', self.rir, 'value')
         # self.button.hold_time = 1
@@ -373,16 +374,18 @@ class CozmarsServer:
             return self._double_press_threshold
 
     def long_press_repeat(self, *args):
-        if args:
-            self.button.hold_repeat = args[0]
-        else:
-            return self.button.hold_repeat
+        pass
+        # if args:
+        #     self.button.hold_repeat = args[0]
+        # else:
+        #     return self.button.hold_repeat
 
     def long_press_threshold(self, *args):
-        if args:
-            self.button.hold_time = args[0]
-        else:
-            return self.button.hold_time
+        pass
+        # if args:
+        #     self.button.hold_time = args[0]
+        # else:
+        #     return self.button.hold_time
 
     def distance_threshold(self, *args):
         if args:
