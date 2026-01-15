@@ -63,6 +63,7 @@ class CozmarsServer:
 
     def __del__(self):
         # self.button.close()
+        pass
 
     def __init__(self, conf_path=util.CONF, env_path=util.ENV):
         with open(conf_path) as cf:
