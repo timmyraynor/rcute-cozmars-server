@@ -56,7 +56,8 @@ class CozmarsServer:
 
     async def __aexit__(self, exc_type, exc, tb):
         self.stop_all_motors()
-        for a in [self.sonar, self.lir, self.rir, self.lmotor, self.rmotor, self.cam]:
+        # for a in [self.sonar, self.lir, self.rir, self.lmotor, self.rmotor, self.cam]:
+        for a in [self.cam]:
             a and a.close()
         self._screen_backlight(None)
         self._speaker_power(None)
@@ -86,12 +87,24 @@ class CozmarsServer:
         cs_pin = digitalio.DigitalInOut(getattr(board, f'D{self.conf["screen"]["cs"]}'))
         dc_pin = digitalio.DigitalInOut(getattr(board, f'D{self.conf["screen"]["dc"]}'))
         reset_pin = digitalio.DigitalInOut(getattr(board, f'D{self.conf["screen"]["rst"]}'))
-        self.screen = st7789.ST7789(spi, rotation=0, width=135, height=240, x_offset=53, y_offset=40,
+        self.screen = st7789.ST7789(
+            spi,
             cs=cs_pin,
             dc=dc_pin,
             rst=reset_pin,
-            baudrate=24000000,
+            width=135,
+            height=240,
+            x_offset=53,
+            y_offset=40,
+            rotation=0,
+            baudrate=24000000
         )
+        # self.screen = st7789.ST7789(spi, rotation=0, width=135, height=240, x_offset=53, y_offset=40,
+        #     cs=cs_pin,
+        #     dc=dc_pin,
+        #     rst=reset_pin,
+        #     baudrate=24000000,
+        # )
 
         try: # the try-catch is for testing the server without servo driver connected
             self.servokit = ServoKit(channels=16, freq=self.conf['servo']['freq'])

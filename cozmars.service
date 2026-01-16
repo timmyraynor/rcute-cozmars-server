@@ -4,8 +4,8 @@ Description=Cozmars Sanic server
 
 [Service]
 User=root
-WorkingDirectory=/home/pi
-ExecStart=/usr/bin/env python3 -m rcute_cozmars_server
+WorkingDirectory=/home/pi/rcute/rcute-cozmars-server
+ExecStart=/home/pi/rcute/venv/bin/python -m rcute_cozmars_server 
 Restart=always
 StartLimitInterval=10
 
