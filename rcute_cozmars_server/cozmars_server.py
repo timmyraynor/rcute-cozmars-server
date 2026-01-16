@@ -86,7 +86,7 @@ class CozmarsServer:
         cs_pin = digitalio.DigitalInOut(getattr(board, f'D{self.conf["screen"]["cs"]}'))
         dc_pin = digitalio.DigitalInOut(getattr(board, f'D{self.conf["screen"]["dc"]}'))
         reset_pin = digitalio.DigitalInOut(getattr(board, f'D{self.conf["screen"]["rst"]}'))
-        self.screen = st7789.ST7789(spi, rotation=90, width=135, height=240, x_offset=53, y_offset=40,
+        self.screen = st7789.ST7789(spi, rotation=0, width=135, height=240, x_offset=53, y_offset=40,
             cs=cs_pin,
             dc=dc_pin,
             rst=reset_pin,
